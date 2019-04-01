@@ -1,0 +1,19 @@
+{
+  "name": "sample-indexer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bignumber.js": "^8.1.1",
+    "express": "^4.16.4",
+    "lodash.chunk": "^4.2.0",
+    "lodash.mapvalues": "^4.6.0",
+    "openzeppelin-solidity": "^2.1.3",
+    "web3": "^1.0.0-beta.37"
+  }
+}

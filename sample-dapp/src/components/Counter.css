@@ -1,0 +1,25 @@
+.Counter {
+  border: 1px black solid;
+  border-radius: 10px;
+  background-color: #282c34;
+  padding: 50px;
+  min-height: 200px;
+}
+
+.Counter-address {
+  font-size: 50%;
+}
+
+.Counter-notifications {
+  font-size: 75%;
+}
+
+.Counter-unconfirmed {
+  color: lightskyblue;
+}
+
+.Counter button {
+  margin: 3em;
+  padding: 0.5em;
+  border-radius: 3px;
+}

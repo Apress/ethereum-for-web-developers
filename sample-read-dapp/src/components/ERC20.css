@@ -1,0 +1,20 @@
+.ERC20 {
+  border: 1px black solid;
+  border-radius: 10px;
+  background-color: #282c34;
+  padding: 50px;
+  min-height: 200px;
+  font-size: 12pt;
+}
+
+.ERC20-title {
+  font-size: 20pt;
+}
+
+.ERC20-address {
+  font-size: 50%;
+}
+
+.ERC20-notifications {
+  font-size: 75%;
+}

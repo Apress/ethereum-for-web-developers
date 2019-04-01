@@ -1,0 +1,11 @@
+{
+  "contracts" : 
+  {
+    "contracts/Counter.sol:Counter" : 
+    {
+      "abi" : "[{\"constant\":true,\"inputs\":[],\"name\":\"value\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"increase\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"newValue\",\"type\":\"uint256\"}],\"name\":\"Increased\",\"type\":\"event\"}]",
+      "bin" : "608060405234801561001057600080fd5b5060fd8061001f6000396000f3fe6080604052600436106043576000357c0100000000000000000000000000000000000000000000000000000000900480633fa4f245146048578063e8927fbc146070575b600080fd5b348015605357600080fd5b50605a6084565b6040518082815260200191505060405180910390f35b348015607b57600080fd5b506082608a565b005b60005481565b6001600054016000819055507f3496c3ede4ec3ab3686712aa1c238593ea6a42df83f98a5ec7df9834cfa577c56000546040518082815260200191505060405180910390a156fea165627a7a72305820860b7b194c2aecb2efe8c5af410defed12303eff248658c8b856f8e9bc309c620029"
+    }
+  },
+  "version" : "0.5.1+commit.c8a2cb62.Linux.g++"
+}

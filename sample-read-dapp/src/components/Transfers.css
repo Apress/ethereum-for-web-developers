@@ -1,0 +1,6 @@
+.Transfers {
+  text-align: left;
+  max-height: 400px;
+  overflow: auto;
+  padding: 0 30px;
+}

@@ -1,0 +1,19 @@
+@keyframes added {
+  from {
+    opacity: 0;
+  }
+}
+
+
+.Transfer.new {
+  animation: added 1s ease-in-out forwards;
+}
+
+.Transfer a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.Transfer a:hover {
+  text-decoration: underline;
+}
