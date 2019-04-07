@@ -1,0 +1,195 @@
+{
+	"schemaVersion": "2.0.0",
+	"contractName": "InterfaceResolver",
+	"compilerOutput": {
+		"abi": [
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"name": "interfaceID",
+						"type": "bytes4"
+					}
+				],
+				"name": "supportsInterface",
+				"outputs": [
+					{
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"payable": false,
+				"stateMutability": "pure",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"name": "node",
+						"type": "bytes32"
+					},
+					{
+						"name": "interfaceID",
+						"type": "bytes4"
+					}
+				],
+				"name": "interfaceImplementer",
+				"outputs": [
+					{
+						"name": "",
+						"type": "address"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"name": "node",
+						"type": "bytes32"
+					}
+				],
+				"name": "addr",
+				"outputs": [
+					{
+						"name": "",
+						"type": "address"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": false,
+				"inputs": [
+					{
+						"name": "node",
+						"type": "bytes32"
+					},
+					{
+						"name": "addr",
+						"type": "address"
+					}
+				],
+				"name": "setAddr",
+				"outputs": [],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"constant": false,
+				"inputs": [
+					{
+						"name": "node",
+						"type": "bytes32"
+					},
+					{
+						"name": "interfaceID",
+						"type": "bytes4"
+					},
+					{
+						"name": "implementer",
+						"type": "address"
+					}
+				],
+				"name": "setInterface",
+				"outputs": [],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"name": "node",
+						"type": "bytes32"
+					},
+					{
+						"indexed": true,
+						"name": "interfaceID",
+						"type": "bytes4"
+					},
+					{
+						"indexed": false,
+						"name": "implementer",
+						"type": "address"
+					}
+				],
+				"name": "InterfaceChanged",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"name": "node",
+						"type": "bytes32"
+					},
+					{
+						"indexed": false,
+						"name": "a",
+						"type": "address"
+					}
+				],
+				"name": "AddrChanged",
+				"type": "event"
+			}
+		],
+		"evm": {
+			"bytecode": {
+				"linkReferences": {},
+				"object": "0x",
+				"opcodes": "",
+				"sourceMap": ""
+			}
+		}
+	},
+	"sources": {
+		"profiles/InterfaceResolver.sol": {
+			"id": 11
+		},
+		"ResolverBase.sol": {
+			"id": 7
+		},
+		"profiles/AddrResolver.sol": {
+			"id": 9
+		}
+	},
+	"sourceCodes": {
+		"profiles/InterfaceResolver.sol": "pragma solidity ^0.5.0;\n\nimport \"../ResolverBase.sol\";\nimport \"./AddrResolver.sol\";\n\ncontract InterfaceResolver is ResolverBase, AddrResolver {\n    bytes4 constant private INTERFACE_INTERFACE_ID = bytes4(keccak256(\"interfaceImplementer(bytes32,bytes4)\"));\n    bytes4 private constant INTERFACE_META_ID = 0x01ffc9a7;\n\n    event InterfaceChanged(bytes32 indexed node, bytes4 indexed interfaceID, address implementer);\n\n    mapping(bytes32=>mapping(bytes4=>address)) interfaces;\n\n    /**\n     * Sets an interface associated with a name.\n     * Setting the address to 0 restores the default behaviour of querying the contract at `addr()` for interface support.\n     * @param node The node to update.\n     * @param interfaceID The EIP 168 interface ID.\n     * @param implementer The address of a contract that implements this interface for this node.\n     */\n    function setInterface(bytes32 node, bytes4 interfaceID, address implementer) external authorised(node) {\n        interfaces[node][interfaceID] = implementer;\n        emit InterfaceChanged(node, interfaceID, implementer);\n    }\n\n    /**\n     * Returns the address of a contract that implements the specified interface for this name.\n     * If an implementer has not been set for this interfaceID and name, the resolver will query\n     * the contract at `addr()`. If `addr()` is set, a contract exists at that address, and that\n     * contract implements EIP168 and returns `true` for the specified interfaceID, its address\n     * will be returned.\n     * @param node The ENS node to query.\n     * @param interfaceID The EIP 168 interface ID to check for.\n     * @return The address that implements this interface, or 0 if the interface is unsupported.\n     */\n    function interfaceImplementer(bytes32 node, bytes4 interfaceID) external view returns (address) {\n        address implementer = interfaces[node][interfaceID];\n        if(implementer != address(0)) {\n            return implementer;\n        }\n\n        address a = addr(node);\n        if(a == address(0)) {\n            return address(0);\n        }\n\n        (bool success, bytes memory returnData) = a.staticcall(abi.encodeWithSignature(\"supportsInterface(bytes4)\", INTERFACE_META_ID));\n        if(!success || returnData.length < 32 || returnData[31] == 0) {\n            // EIP 168 not supported by target\n            return address(0);\n        }\n\n        (success, returnData) = a.staticcall(abi.encodeWithSignature(\"supportsInterface(bytes4)\", interfaceID));\n        if(!success || returnData.length < 32 || returnData[31] == 0) {\n            // Specified interface not supported by target\n            return address(0);\n        }\n\n        return a;\n    }\n\n    function supportsInterface(bytes4 interfaceID) public pure returns(bool) {\n        return interfaceID == INTERFACE_INTERFACE_ID || super.supportsInterface(interfaceID);\n    }\n}\n",
+		"ResolverBase.sol": "pragma solidity ^0.5.0;\n\ncontract ResolverBase {\n    bytes4 private constant INTERFACE_META_ID = 0x01ffc9a7;\n\n    function supportsInterface(bytes4 interfaceID) public pure returns(bool) {\n        return interfaceID == INTERFACE_META_ID;\n    }\n\n    function isAuthorised(bytes32 node) internal view returns(bool);\n\n    modifier authorised(bytes32 node) {\n        require(isAuthorised(node));\n        _;\n    }\n}\n",
+		"profiles/AddrResolver.sol": "pragma solidity ^0.5.0;\n\nimport \"../ResolverBase.sol\";\n\ncontract AddrResolver is ResolverBase {\n    bytes4 constant private ADDR_INTERFACE_ID = 0x3b3b57de;\n\n    event AddrChanged(bytes32 indexed node, address a);\n\n    mapping(bytes32=>address) addresses;\n\n    /**\n     * Sets the address associated with an ENS node.\n     * May only be called by the owner of that node in the ENS registry.\n     * @param node The node to update.\n     * @param addr The address to set.\n     */\n    function setAddr(bytes32 node, address addr) external authorised(node) {\n        addresses[node] = addr;\n        emit AddrChanged(node, addr);\n    }\n\n    /**\n     * Returns the address associated with an ENS node.\n     * @param node The ENS node to query.\n     * @return The associated address.\n     */\n    function addr(bytes32 node) public view returns (address) {\n        return addresses[node];\n    }\n\n    function supportsInterface(bytes4 interfaceID) public pure returns(bool) {\n        return interfaceID == ADDR_INTERFACE_ID || super.supportsInterface(interfaceID);\n    }\n}\n"
+	},
+	"sourceTreeHashHex": "0xd1d3d2b18739c00562e37dec62dc4dfb01b62a70f8fe00c5501b2e270b5df665",
+	"compiler": {
+		"name": "solc",
+		"version": "soljson-v0.5.7+commit.6da8b019.js",
+		"settings": {
+			"optimizer": {
+				"enabled": false
+			},
+			"outputSelection": {
+				"*": {
+					"*": [
+						"abi",
+						"evm.bytecode.object"
+					]
+				}
+			},
+			"remappings": [
+				"@ensdomains/resolver=/home/spalladino/Projects/samples/sample-ens/node_modules/@ensdomains/resolver",
+				"@ensdomains/ens=/home/spalladino/Projects/samples/sample-ens/node_modules/@ensdomains/ens"
+			]
+		}
+	},
+	"networks": {}
+}
