@@ -29,7 +29,7 @@ function Contract(web3, artifactName, address) {
 }
 
 async function main() {
-  const web3 = new Web3(process.env.PROVIDER_URL || 'http://localhost:8575');
+  const web3 = new Web3(process.env.PROVIDER_URL || 'http://localhost:8545');
   const [account] = await web3.eth.getAccounts();
   const owner = account;
   const user = account;
@@ -53,7 +53,7 @@ async function main() {
   const testRegistrar = Contract(web3, "FIFSRegistrar", testRegistrarAddress);
 
   // Domain name to use
-  const name = 'palla-v7';
+  const name = 'awesome-testing-app';
   const domain = `${name}.test`;
 
   // Load custom registrar info if already deployed
@@ -114,3 +114,4 @@ async function main() {
 }
 
 main()
+
