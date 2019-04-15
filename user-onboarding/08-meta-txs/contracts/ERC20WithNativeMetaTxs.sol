@@ -15,7 +15,7 @@ contract ERC20WithNativeMetaTxs is ERC20 {
     _mint(initialHolder, initialSupply);
   }
 
-  function signedTransfer(address to, uint256 value, uint256 reward, uint256 nonce, bytes memory signature) public {
+  function signedTransfer(address to, uint256 value, uint256 nonce, uint256 reward, bytes memory signature) public {
     bytes32 hash = getTransferHash(to, value, nonce, reward).toEthSignedMessageHash();
     address signer = hash.recover(signature);
     require(nonce == nonces[signer]);

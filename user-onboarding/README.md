@@ -114,6 +114,24 @@ Deployment succeeded at 0x8b0c67d1444B7bA1c84885e62d6e6E26235Af470
 Relayer profit was 0.099510111 ETH
 Checking if owner is registered in identity: true
 ```
+- **`erc721-with-native-meta-txs`**: Deploys an ERC721 contract with support for native meta transactions, and uses the `signedTransferFrom` method to transfer ownership of a non-fungible token via a meta transaction.
+```
+$node 05-erc721-with-native-meta-txs.js 
+Deployed ERC721 contract at 0xD833215cBcc3f914bD1C9ece3EE7BF8B14f841bb
+Minted token 42 to 0xaca94ef8bd5ffee41947b4585a84bda5a3d3da6e
+Sent meta transaction to ERC721 with transfer
+Changed ownership of 42 to 0x3E5e9111Ae8eB78Fe1CC3bb8915d5D461F3Ef9A9
+```
+- **`erc20-with-native-meta-txs`**: Deploys an ERC20 contract with support for native meta transactions that pays out rewards to relayers in the same token, and executes a transfer via a native meta transaction.
+```
+$ node 06-erc20-with-native-meta-txs.js 
+Deployed ERC20 contract at 0xA57B8a5584442B467b4689F1144D269d096A3daF
+Signer balance is 1000000 tokens
+Sent meta transaction to ERC20
+Signer has now 890000 tokens
+Recipient has 100000 tokens
+Relayer has 10000 tokens
+```
 
 ## ENS
 
