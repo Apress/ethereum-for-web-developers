@@ -1,0 +1,239 @@
+{
+	"schemaVersion": "2.0.0",
+	"contractName": "IdentityWithENS",
+	"compilerOutput": {
+		"abi": [
+			{
+				"constant": false,
+				"inputs": [
+					{
+						"name": "_hashLabel",
+						"type": "bytes32"
+					},
+					{
+						"name": "_node",
+						"type": "bytes32"
+					},
+					{
+						"name": "ens",
+						"type": "address"
+					},
+					{
+						"name": "registrar",
+						"type": "address"
+					},
+					{
+						"name": "resolver",
+						"type": "address"
+					}
+				],
+				"name": "registerENS",
+				"outputs": [],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "accounts",
+				"outputs": [
+					{
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": false,
+				"inputs": [
+					{
+						"name": "toRemove",
+						"type": "address"
+					}
+				],
+				"name": "removeAccount",
+				"outputs": [],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"constant": false,
+				"inputs": [
+					{
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"name": "value",
+						"type": "uint256"
+					},
+					{
+						"name": "data",
+						"type": "bytes"
+					}
+				],
+				"name": "forward",
+				"outputs": [
+					{
+						"name": "",
+						"type": "bytes"
+					}
+				],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"constant": false,
+				"inputs": [
+					{
+						"name": "newAccount",
+						"type": "address"
+					}
+				],
+				"name": "addAccount",
+				"outputs": [],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"name": "owner",
+						"type": "address"
+					}
+				],
+				"payable": true,
+				"stateMutability": "payable",
+				"type": "constructor"
+			},
+			{
+				"payable": true,
+				"stateMutability": "payable",
+				"type": "fallback"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"name": "account",
+						"type": "address"
+					}
+				],
+				"name": "AccountAdded",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"name": "account",
+						"type": "address"
+					}
+				],
+				"name": "AccountRemoved",
+				"type": "event"
+			}
+		],
+		"evm": {
+			"bytecode": {
+				"linkReferences": {},
+				"object": "0x6080604052604051602080610be68339810180604052602081101561002357600080fd5b81019080805190602001909291905050508060016000808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff0219169083151502179055508073ffffffffffffffffffffffffffffffffffffffff167f8f42195a0bbfa58954be4349deb9efc38bdb9c298e529f705f8bc1e38bce039960405160405180910390a25050610b06806100e06000396000f3fe60806040526004361061004a5760003560e01c806330358d581461004c5780635e5c06e2146100f1578063c4740a951461015a578063d7f31eb9146101ab578063e89b0e1e14610316575b005b34801561005857600080fd5b506100ef600480360360a081101561006f57600080fd5b810190808035906020019092919080359060200190929190803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610367565b005b3480156100fd57600080fd5b506101406004803603602081101561011457600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610609565b604051808215151515815260200191505060405180910390f35b34801561016657600080fd5b506101a96004803603602081101561017d57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610629565b005b3480156101b757600080fd5b5061029b600480360360608110156101ce57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803590602001909291908035906020019064010000000081111561021557600080fd5b82018360208201111561022757600080fd5b8035906020019184600183028401116401000000008311171561024957600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050509192919290505050610784565b6040518080602001828103825283818151815260200191508051906020019080838360005b838110156102db5780820151818401526020810190506102c0565b50505050905090810190601f1680156103085780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b34801561032257600080fd5b506103656004803603602081101561033957600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919050505061097f565b005b6000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff16610425576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260188152602001807f53656e646572206973206e6f74207265636f676e697a6564000000000000000081525060200191505060405180910390fd5b8173ffffffffffffffffffffffffffffffffffffffff1663d22057a986306040518363ffffffff1660e01b8152600401808381526020018273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200192505050600060405180830381600087803b1580156104ac57600080fd5b505af11580156104c0573d6000803e3d6000fd5b505050508273ffffffffffffffffffffffffffffffffffffffff16631896f70a85836040518363ffffffff1660e01b8152600401808381526020018273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200192505050600060405180830381600087803b15801561054b57600080fd5b505af115801561055f573d6000803e3d6000fd5b505050508073ffffffffffffffffffffffffffffffffffffffff1663d5fa2b0085306040518363ffffffff1660e01b8152600401808381526020018273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200192505050600060405180830381600087803b1580156105ea57600080fd5b505af11580156105fe573d6000803e3d6000fd5b505050505050505050565b60006020528060005260406000206000915054906101000a900460ff1681565b6000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff166106e7576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260188152602001807f53656e646572206973206e6f74207265636f676e697a6564000000000000000081525060200191505060405180910390fd5b60008060008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff0219169083151502179055508073ffffffffffffffffffffffffffffffffffffffff167fbf2e373b8263f701e10efcac80ea442afcb29c6852b3a42b0b46cc8edaaf54a760405160405180910390a250565b60606000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff16610844576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260188152602001807f53656e646572206973206e6f74207265636f676e697a6564000000000000000081525060200191505060405180910390fd5b600060608573ffffffffffffffffffffffffffffffffffffffff1685856040518082805190602001908083835b602083106108945780518252602082019150602081019050602083039250610871565b6001836020036101000a03801982511681845116808217855250505050505090500191505060006040518083038185875af1925050503d80600081146108f6576040519150601f19603f3d011682016040523d82523d6000602084013e6108fb565b606091505b509150915081610973576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260158152602001807f466f727761726465642063616c6c206661696c6564000000000000000000000081525060200191505060405180910390fd5b80925050509392505050565b6000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff16610a3d576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260188152602001807f53656e646572206973206e6f74207265636f676e697a6564000000000000000081525060200191505060405180910390fd5b60016000808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff0219169083151502179055508073ffffffffffffffffffffffffffffffffffffffff167f8f42195a0bbfa58954be4349deb9efc38bdb9c298e529f705f8bc1e38bce039960405160405180910390a25056fea165627a7a7230582015fbbda6703d72ed15579fdfb3648f58d0de3bccde20e2e99f229575fa7d0f060029",
+				"opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE PUSH1 0x40 MLOAD PUSH1 0x20 DUP1 PUSH2 0xBE6 DUP4 CODECOPY DUP2 ADD DUP1 PUSH1 0x40 MSTORE PUSH1 0x20 DUP2 LT ISZERO PUSH2 0x23 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST DUP2 ADD SWAP1 DUP1 DUP1 MLOAD SWAP1 PUSH1 0x20 ADD SWAP1 SWAP3 SWAP2 SWAP1 POP POP POP DUP1 PUSH1 0x1 PUSH1 0x0 DUP1 DUP4 PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND DUP2 MSTORE PUSH1 0x20 ADD SWAP1 DUP2 MSTORE PUSH1 0x20 ADD PUSH1 0x0 KECCAK256 PUSH1 0x0 PUSH2 0x100 EXP DUP2 SLOAD DUP2 PUSH1 0xFF MUL NOT AND SWAP1 DUP4 ISZERO ISZERO MUL OR SWAP1 SSTORE POP DUP1 PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND PUSH32 0x8F42195A0BBFA58954BE4349DEB9EFC38BDB9C298E529F705F8BC1E38BCE0399 PUSH1 0x40 MLOAD PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 LOG2 POP POP PUSH2 0xB06 DUP1 PUSH2 0xE0 PUSH1 0x0 CODECOPY PUSH1 0x0 RETURN INVALID PUSH1 0x80 PUSH1 0x40 MSTORE PUSH1 0x4 CALLDATASIZE LT PUSH2 0x4A JUMPI PUSH1 0x0 CALLDATALOAD PUSH1 0xE0 SHR DUP1 PUSH4 0x30358D58 EQ PUSH2 0x4C JUMPI DUP1 PUSH4 0x5E5C06E2 EQ PUSH2 0xF1 JUMPI DUP1 PUSH4 0xC4740A95 EQ PUSH2 0x15A JUMPI DUP1 PUSH4 0xD7F31EB9 EQ PUSH2 0x1AB JUMPI DUP1 PUSH4 0xE89B0E1E EQ PUSH2 0x316 JUMPI JUMPDEST STOP JUMPDEST CALLVALUE DUP1 ISZERO PUSH2 0x58 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH2 0xEF PUSH1 0x4 DUP1 CALLDATASIZE SUB PUSH1 0xA0 DUP2 LT ISZERO PUSH2 0x6F JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST DUP2 ADD SWAP1 DUP1 DUP1 CALLDATALOAD SWAP1 PUSH1 0x20 ADD SWAP1 SWAP3 SWAP2 SWAP1 DUP1 CALLDATALOAD SWAP1 PUSH1 0x20 ADD SWAP1 SWAP3 SWAP2 SWAP1 DUP1 CALLDATALOAD PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND SWAP1 PUSH1 0x20 ADD SWAP1 SWAP3 SWAP2 SWAP1 DUP1 CALLDATALOAD PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND SWAP1 PUSH1 0x20 ADD SWAP1 SWAP3 SWAP2 SWAP1 DUP1 CALLDATALOAD PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND SWAP1 PUSH1 0x20 ADD SWAP1 SWAP3 SWAP2 SWAP1 POP POP POP PUSH2 0x367 JUMP JUMPDEST STOP JUMPDEST CALLVALUE DUP1 ISZERO PUSH2 0xFD JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH2 0x140 PUSH1 0x4 DUP1 CALLDATASIZE SUB PUSH1 0x20 DUP2 LT ISZERO PUSH2 0x114 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST DUP2 ADD SWAP1 DUP1 DUP1 CALLDATALOAD PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND SWAP1 PUSH1 0x20 ADD SWAP1 SWAP3 SWAP2 SWAP1 POP POP POP PUSH2 0x609 JUMP JUMPDEST PUSH1 0x40 MLOAD DUP1 DUP3 ISZERO ISZERO ISZERO ISZERO DUP2 MSTORE PUSH1 0x20 ADD SWAP2 POP POP PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 RETURN JUMPDEST CALLVALUE DUP1 ISZERO PUSH2 0x166 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH2 0x1A9 PUSH1 0x4 DUP1 CALLDATASIZE SUB PUSH1 0x20 DUP2 LT ISZERO PUSH2 0x17D JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST DUP2 ADD SWAP1 DUP1 DUP1 CALLDATALOAD PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND SWAP1 PUSH1 0x20 ADD SWAP1 SWAP3 SWAP2 SWAP1 POP POP POP PUSH2 0x629 JUMP JUMPDEST STOP JUMPDEST CALLVALUE DUP1 ISZERO PUSH2 0x1B7 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH2 0x29B PUSH1 0x4 DUP1 CALLDATASIZE SUB PUSH1 0x60 DUP2 LT ISZERO PUSH2 0x1CE JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST DUP2 ADD SWAP1 DUP1 DUP1 CALLDATALOAD PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND SWAP1 PUSH1 0x20 ADD SWAP1 SWAP3 SWAP2 SWAP1 DUP1 CALLDATALOAD SWAP1 PUSH1 0x20 ADD SWAP1 SWAP3 SWAP2 SWAP1 DUP1 CALLDATALOAD SWAP1 PUSH1 0x20 ADD SWAP1 PUSH5 0x100000000 DUP2 GT ISZERO PUSH2 0x215 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST DUP3 ADD DUP4 PUSH1 0x20 DUP3 ADD GT ISZERO PUSH2 0x227 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST DUP1 CALLDATALOAD SWAP1 PUSH1 0x20 ADD SWAP2 DUP5 PUSH1 0x1 DUP4 MUL DUP5 ADD GT PUSH5 0x100000000 DUP4 GT OR ISZERO PUSH2 0x249 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST SWAP2 SWAP1 DUP1 DUP1 PUSH1 0x1F ADD PUSH1 0x20 DUP1 SWAP2 DIV MUL PUSH1 0x20 ADD PUSH1 0x40 MLOAD SWAP1 DUP2 ADD PUSH1 0x40 MSTORE DUP1 SWAP4 SWAP3 SWAP2 SWAP1 DUP2 DUP2 MSTORE PUSH1 0x20 ADD DUP4 DUP4 DUP1 DUP3 DUP5 CALLDATACOPY PUSH1 0x0 DUP2 DUP5 ADD MSTORE PUSH1 0x1F NOT PUSH1 0x1F DUP3 ADD AND SWAP1 POP DUP1 DUP4 ADD SWAP3 POP POP POP POP POP POP POP SWAP2 SWAP3 SWAP2 SWAP3 SWAP1 POP POP POP PUSH2 0x784 JUMP JUMPDEST PUSH1 0x40 MLOAD DUP1 DUP1 PUSH1 0x20 ADD DUP3 DUP2 SUB DUP3 MSTORE DUP4 DUP2 DUP2 MLOAD DUP2 MSTORE PUSH1 0x20 ADD SWAP2 POP DUP1 MLOAD SWAP1 PUSH1 0x20 ADD SWAP1 DUP1 DUP4 DUP4 PUSH1 0x0 JUMPDEST DUP4 DUP2 LT ISZERO PUSH2 0x2DB JUMPI DUP1 DUP3 ADD MLOAD DUP2 DUP5 ADD MSTORE PUSH1 0x20 DUP2 ADD SWAP1 POP PUSH2 0x2C0 JUMP JUMPDEST POP POP POP POP SWAP1 POP SWAP1 DUP2 ADD SWAP1 PUSH1 0x1F AND DUP1 ISZERO PUSH2 0x308 JUMPI DUP1 DUP3 SUB DUP1 MLOAD PUSH1 0x1 DUP4 PUSH1 0x20 SUB PUSH2 0x100 EXP SUB NOT AND DUP2 MSTORE PUSH1 0x20 ADD SWAP2 POP JUMPDEST POP SWAP3 POP POP POP PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 RETURN JUMPDEST CALLVALUE DUP1 ISZERO PUSH2 0x322 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH2 0x365 PUSH1 0x4 DUP1 CALLDATASIZE SUB PUSH1 0x20 DUP2 LT ISZERO PUSH2 0x339 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST DUP2 ADD SWAP1 DUP1 DUP1 CALLDATALOAD PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND SWAP1 PUSH1 0x20 ADD SWAP1 SWAP3 SWAP2 SWAP1 POP POP POP PUSH2 0x97F JUMP JUMPDEST STOP JUMPDEST PUSH1 0x0 DUP1 CALLER PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND DUP2 MSTORE PUSH1 0x20 ADD SWAP1 DUP2 MSTORE PUSH1 0x20 ADD PUSH1 0x0 KECCAK256 PUSH1 0x0 SWAP1 SLOAD SWAP1 PUSH2 0x100 EXP SWAP1 DIV PUSH1 0xFF AND PUSH2 0x425 JUMPI PUSH1 0x40 MLOAD PUSH32 0x8C379A000000000000000000000000000000000000000000000000000000000 DUP2 MSTORE PUSH1 0x4 ADD DUP1 DUP1 PUSH1 0x20 ADD DUP3 DUP2 SUB DUP3 MSTORE PUSH1 0x18 DUP2 MSTORE PUSH1 0x20 ADD DUP1 PUSH32 0x53656E646572206973206E6F74207265636F676E697A65640000000000000000 DUP2 MSTORE POP PUSH1 0x20 ADD SWAP2 POP POP PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 REVERT JUMPDEST DUP2 PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND PUSH4 0xD22057A9 DUP7 ADDRESS PUSH1 0x40 MLOAD DUP4 PUSH4 0xFFFFFFFF AND PUSH1 0xE0 SHL DUP2 MSTORE PUSH1 0x4 ADD DUP1 DUP4 DUP2 MSTORE PUSH1 0x20 ADD DUP3 PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND DUP2 MSTORE PUSH1 0x20 ADD SWAP3 POP POP POP PUSH1 0x0 PUSH1 0x40 MLOAD DUP1 DUP4 SUB DUP2 PUSH1 0x0 DUP8 DUP1 EXTCODESIZE ISZERO DUP1 ISZERO PUSH2 0x4AC JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP GAS CALL ISZERO DUP1 ISZERO PUSH2 0x4C0 JUMPI RETURNDATASIZE PUSH1 0x0 DUP1 RETURNDATACOPY RETURNDATASIZE PUSH1 0x0 REVERT JUMPDEST POP POP POP POP DUP3 PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND PUSH4 0x1896F70A DUP6 DUP4 PUSH1 0x40 MLOAD DUP4 PUSH4 0xFFFFFFFF AND PUSH1 0xE0 SHL DUP2 MSTORE PUSH1 0x4 ADD DUP1 DUP4 DUP2 MSTORE PUSH1 0x20 ADD DUP3 PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND DUP2 MSTORE PUSH1 0x20 ADD SWAP3 POP POP POP PUSH1 0x0 PUSH1 0x40 MLOAD DUP1 DUP4 SUB DUP2 PUSH1 0x0 DUP8 DUP1 EXTCODESIZE ISZERO DUP1 ISZERO PUSH2 0x54B JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP GAS CALL ISZERO DUP1 ISZERO PUSH2 0x55F JUMPI RETURNDATASIZE PUSH1 0x0 DUP1 RETURNDATACOPY RETURNDATASIZE PUSH1 0x0 REVERT JUMPDEST POP POP POP POP DUP1 PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND PUSH4 0xD5FA2B00 DUP6 ADDRESS PUSH1 0x40 MLOAD DUP4 PUSH4 0xFFFFFFFF AND PUSH1 0xE0 SHL DUP2 MSTORE PUSH1 0x4 ADD DUP1 DUP4 DUP2 MSTORE PUSH1 0x20 ADD DUP3 PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND DUP2 MSTORE PUSH1 0x20 ADD SWAP3 POP POP POP PUSH1 0x0 PUSH1 0x40 MLOAD DUP1 DUP4 SUB DUP2 PUSH1 0x0 DUP8 DUP1 EXTCODESIZE ISZERO DUP1 ISZERO PUSH2 0x5EA JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP GAS CALL ISZERO DUP1 ISZERO PUSH2 0x5FE JUMPI RETURNDATASIZE PUSH1 0x0 DUP1 RETURNDATACOPY RETURNDATASIZE PUSH1 0x0 REVERT JUMPDEST POP POP POP POP POP POP POP POP POP JUMP JUMPDEST PUSH1 0x0 PUSH1 0x20 MSTORE DUP1 PUSH1 0x0 MSTORE PUSH1 0x40 PUSH1 0x0 KECCAK256 PUSH1 0x0 SWAP2 POP SLOAD SWAP1 PUSH2 0x100 EXP SWAP1 DIV PUSH1 0xFF AND DUP2 JUMP JUMPDEST PUSH1 0x0 DUP1 CALLER PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND DUP2 MSTORE PUSH1 0x20 ADD SWAP1 DUP2 MSTORE PUSH1 0x20 ADD PUSH1 0x0 KECCAK256 PUSH1 0x0 SWAP1 SLOAD SWAP1 PUSH2 0x100 EXP SWAP1 DIV PUSH1 0xFF AND PUSH2 0x6E7 JUMPI PUSH1 0x40 MLOAD PUSH32 0x8C379A000000000000000000000000000000000000000000000000000000000 DUP2 MSTORE PUSH1 0x4 ADD DUP1 DUP1 PUSH1 0x20 ADD DUP3 DUP2 SUB DUP3 MSTORE PUSH1 0x18 DUP2 MSTORE PUSH1 0x20 ADD DUP1 PUSH32 0x53656E646572206973206E6F74207265636F676E697A65640000000000000000 DUP2 MSTORE POP PUSH1 0x20 ADD SWAP2 POP POP PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 REVERT JUMPDEST PUSH1 0x0 DUP1 PUSH1 0x0 DUP4 PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND DUP2 MSTORE PUSH1 0x20 ADD SWAP1 DUP2 MSTORE PUSH1 0x20 ADD PUSH1 0x0 KECCAK256 PUSH1 0x0 PUSH2 0x100 EXP DUP2 SLOAD DUP2 PUSH1 0xFF MUL NOT AND SWAP1 DUP4 ISZERO ISZERO MUL OR SWAP1 SSTORE POP DUP1 PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND PUSH32 0xBF2E373B8263F701E10EFCAC80EA442AFCB29C6852B3A42B0B46CC8EDAAF54A7 PUSH1 0x40 MLOAD PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 LOG2 POP JUMP JUMPDEST PUSH1 0x60 PUSH1 0x0 DUP1 CALLER PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND DUP2 MSTORE PUSH1 0x20 ADD SWAP1 DUP2 MSTORE PUSH1 0x20 ADD PUSH1 0x0 KECCAK256 PUSH1 0x0 SWAP1 SLOAD SWAP1 PUSH2 0x100 EXP SWAP1 DIV PUSH1 0xFF AND PUSH2 0x844 JUMPI PUSH1 0x40 MLOAD PUSH32 0x8C379A000000000000000000000000000000000000000000000000000000000 DUP2 MSTORE PUSH1 0x4 ADD DUP1 DUP1 PUSH1 0x20 ADD DUP3 DUP2 SUB DUP3 MSTORE PUSH1 0x18 DUP2 MSTORE PUSH1 0x20 ADD DUP1 PUSH32 0x53656E646572206973206E6F74207265636F676E697A65640000000000000000 DUP2 MSTORE POP PUSH1 0x20 ADD SWAP2 POP POP PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 REVERT JUMPDEST PUSH1 0x0 PUSH1 0x60 DUP6 PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND DUP6 DUP6 PUSH1 0x40 MLOAD DUP1 DUP3 DUP1 MLOAD SWAP1 PUSH1 0x20 ADD SWAP1 DUP1 DUP4 DUP4 JUMPDEST PUSH1 0x20 DUP4 LT PUSH2 0x894 JUMPI DUP1 MLOAD DUP3 MSTORE PUSH1 0x20 DUP3 ADD SWAP2 POP PUSH1 0x20 DUP2 ADD SWAP1 POP PUSH1 0x20 DUP4 SUB SWAP3 POP PUSH2 0x871 JUMP JUMPDEST PUSH1 0x1 DUP4 PUSH1 0x20 SUB PUSH2 0x100 EXP SUB DUP1 NOT DUP3 MLOAD AND DUP2 DUP5 MLOAD AND DUP1 DUP3 OR DUP6 MSTORE POP POP POP POP POP POP SWAP1 POP ADD SWAP2 POP POP PUSH1 0x0 PUSH1 0x40 MLOAD DUP1 DUP4 SUB DUP2 DUP6 DUP8 GAS CALL SWAP3 POP POP POP RETURNDATASIZE DUP1 PUSH1 0x0 DUP2 EQ PUSH2 0x8F6 JUMPI PUSH1 0x40 MLOAD SWAP2 POP PUSH1 0x1F NOT PUSH1 0x3F RETURNDATASIZE ADD AND DUP3 ADD PUSH1 0x40 MSTORE RETURNDATASIZE DUP3 MSTORE RETURNDATASIZE PUSH1 0x0 PUSH1 0x20 DUP5 ADD RETURNDATACOPY PUSH2 0x8FB JUMP JUMPDEST PUSH1 0x60 SWAP2 POP JUMPDEST POP SWAP2 POP SWAP2 POP DUP2 PUSH2 0x973 JUMPI PUSH1 0x40 MLOAD PUSH32 0x8C379A000000000000000000000000000000000000000000000000000000000 DUP2 MSTORE PUSH1 0x4 ADD DUP1 DUP1 PUSH1 0x20 ADD DUP3 DUP2 SUB DUP3 MSTORE PUSH1 0x15 DUP2 MSTORE PUSH1 0x20 ADD DUP1 PUSH32 0x466F727761726465642063616C6C206661696C65640000000000000000000000 DUP2 MSTORE POP PUSH1 0x20 ADD SWAP2 POP POP PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 REVERT JUMPDEST DUP1 SWAP3 POP POP POP SWAP4 SWAP3 POP POP POP JUMP JUMPDEST PUSH1 0x0 DUP1 CALLER PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND DUP2 MSTORE PUSH1 0x20 ADD SWAP1 DUP2 MSTORE PUSH1 0x20 ADD PUSH1 0x0 KECCAK256 PUSH1 0x0 SWAP1 SLOAD SWAP1 PUSH2 0x100 EXP SWAP1 DIV PUSH1 0xFF AND PUSH2 0xA3D JUMPI PUSH1 0x40 MLOAD PUSH32 0x8C379A000000000000000000000000000000000000000000000000000000000 DUP2 MSTORE PUSH1 0x4 ADD DUP1 DUP1 PUSH1 0x20 ADD DUP3 DUP2 SUB DUP3 MSTORE PUSH1 0x18 DUP2 MSTORE PUSH1 0x20 ADD DUP1 PUSH32 0x53656E646572206973206E6F74207265636F676E697A65640000000000000000 DUP2 MSTORE POP PUSH1 0x20 ADD SWAP2 POP POP PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 REVERT JUMPDEST PUSH1 0x1 PUSH1 0x0 DUP1 DUP4 PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND DUP2 MSTORE PUSH1 0x20 ADD SWAP1 DUP2 MSTORE PUSH1 0x20 ADD PUSH1 0x0 KECCAK256 PUSH1 0x0 PUSH2 0x100 EXP DUP2 SLOAD DUP2 PUSH1 0xFF MUL NOT AND SWAP1 DUP4 ISZERO ISZERO MUL OR SWAP1 SSTORE POP DUP1 PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND PUSH32 0x8F42195A0BBFA58954BE4349DEB9EFC38BDB9C298E529F705F8BC1E38BCE0399 PUSH1 0x40 MLOAD PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 LOG2 POP JUMP INVALID LOG1 PUSH6 0x627A7A723058 KECCAK256 ISZERO 0xfb 0xbd 0xa6 PUSH17 0x3D72ED15579FDFB3648F58D0DE3BCCDE20 0xe2 0xe9 SWAP16 0x22 SWAP6 PUSH22 0xFA7D0F06002900000000000000000000000000000000 ",
+				"sourceMap": "210:575:1:-;;;251:68;;;;;;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;251:68:1;;;;;;;;;;;;;;;;292:5;255:4:0;237:8;:15;246:5;237:15;;;;;;;;;;;;;;;;:22;;;;;;;;;;;;;;;;;;283:5;270:19;;;;;;;;;;;;189:105;251:68:1;210:575;;;;;;"
+			}
+		}
+	},
+	"sources": {
+		"IdentityWithENS.sol": {
+			"id": 1
+		},
+		"@ensdomains/ens/contracts/ENS.sol": {
+			"id": 2
+		},
+		"@ensdomains/ens/contracts/FIFSRegistrar.sol": {
+			"id": 3
+		},
+		"@ensdomains/resolver/contracts/PublicResolver.sol": {
+			"id": 4
+		},
+		"@ensdomains/resolver/contracts/profiles/ABIResolver.sol": {
+			"id": 6
+		},
+		"@ensdomains/resolver/contracts/ResolverBase.sol": {
+			"id": 5
+		},
+		"@ensdomains/resolver/contracts/profiles/AddrResolver.sol": {
+			"id": 7
+		},
+		"@ensdomains/resolver/contracts/profiles/ContentHashResolver.sol": {
+			"id": 8
+		},
+		"@ensdomains/resolver/contracts/profiles/InterfaceResolver.sol": {
+			"id": 9
+		},
+		"@ensdomains/resolver/contracts/profiles/NameResolver.sol": {
+			"id": 10
+		},
+		"@ensdomains/resolver/contracts/profiles/PubkeyResolver.sol": {
+			"id": 11
+		},
+		"@ensdomains/resolver/contracts/profiles/TextResolver.sol": {
+			"id": 12
+		},
+		"Identity.sol": {
+			"id": 0
+		}
+	},
+	"sourceCodes": {
+		"IdentityWithENS.sol": "pragma solidity ^0.5.0;\n\nimport \"@ensdomains/ens/contracts/ENS.sol\";\nimport \"@ensdomains/ens/contracts/FIFSRegistrar.sol\";\nimport \"@ensdomains/resolver/contracts/PublicResolver.sol\";\n\nimport \"./Identity.sol\";\n\ncontract IdentityWithENS is Identity {\n  constructor(address owner) \n    Identity(owner) public payable {\n  }\n\n  // Code adapted from https://github.com/UniversalLogin/UniversalLoginSDK/blob/02025571ff8c1f256d47e2e96bbcfda6f4a412c2/universal-login-contracts/contracts/ENSRegistered.sol\n  function registerENS(bytes32 _hashLabel, bytes32 _node, ENS ens, FIFSRegistrar registrar, PublicResolver resolver) onlyUserAccount public {\n    registrar.register(_hashLabel, address(this));\n    ens.setResolver(_node, address(resolver));\n    resolver.setAddr(_node, address(this));\n  }\n}\n",
+		"@ensdomains/ens/contracts/ENS.sol": "pragma solidity >=0.4.24;\n\ninterface ENS {\n\n    // Logged when the owner of a node assigns a new owner to a subnode.\n    event NewOwner(bytes32 indexed node, bytes32 indexed label, address owner);\n\n    // Logged when the owner of a node transfers ownership to a new account.\n    event Transfer(bytes32 indexed node, address owner);\n\n    // Logged when the resolver for a node changes.\n    event NewResolver(bytes32 indexed node, address resolver);\n\n    // Logged when the TTL of a node changes\n    event NewTTL(bytes32 indexed node, uint64 ttl);\n\n\n    function setSubnodeOwner(bytes32 node, bytes32 label, address owner) external;\n    function setResolver(bytes32 node, address resolver) external;\n    function setOwner(bytes32 node, address owner) external;\n    function setTTL(bytes32 node, uint64 ttl) external;\n    function owner(bytes32 node) external view returns (address);\n    function resolver(bytes32 node) external view returns (address);\n    function ttl(bytes32 node) external view returns (uint64);\n\n}\n",
+		"@ensdomains/ens/contracts/FIFSRegistrar.sol": "pragma solidity ^0.5.0;\n\nimport \"./ENS.sol\";\n\n/**\n * A registrar that allocates subdomains to the first person to claim them.\n */\ncontract FIFSRegistrar {\n    ENS ens;\n    bytes32 rootNode;\n\n    modifier only_owner(bytes32 label) {\n        address currentOwner = ens.owner(keccak256(abi.encodePacked(rootNode, label)));\n        require(currentOwner == address(0x0) || currentOwner == msg.sender);\n        _;\n    }\n\n    /**\n     * Constructor.\n     * @param ensAddr The address of the ENS registry.\n     * @param node The node that this registrar administers.\n     */\n    constructor(ENS ensAddr, bytes32 node) public {\n        ens = ensAddr;\n        rootNode = node;\n    }\n\n    /**\n     * Register a name, or change the owner of an existing registration.\n     * @param label The hash of the label to register.\n     * @param owner The address of the new owner.\n     */\n    function register(bytes32 label, address owner) public only_owner(label) {\n        ens.setSubnodeOwner(rootNode, label, owner);\n    }\n}\n",
+		"@ensdomains/resolver/contracts/PublicResolver.sol": "pragma solidity ^0.5.0;\n\nimport \"@ensdomains/ens/contracts/ENS.sol\";\nimport \"./profiles/ABIResolver.sol\";\nimport \"./profiles/AddrResolver.sol\";\nimport \"./profiles/ContentHashResolver.sol\";\nimport \"./profiles/InterfaceResolver.sol\";\nimport \"./profiles/NameResolver.sol\";\nimport \"./profiles/PubkeyResolver.sol\";\nimport \"./profiles/TextResolver.sol\";\n\n/**\n * A simple resolver anyone can use; only allows the owner of a node to set its\n * address.\n */\ncontract PublicResolver is ABIResolver, AddrResolver, ContentHashResolver, InterfaceResolver, NameResolver, PubkeyResolver, TextResolver {\n    ENS ens;\n\n    /**\n     * A mapping of authorisations. An address that is authorised for a name\n     * may make any changes to the name that the owner could, but may not update\n     * the set of authorisations.\n     * (node, owner, caller) => isAuthorised\n     */\n    mapping(bytes32=>mapping(address=>mapping(address=>bool))) public authorisations;\n\n    event AuthorisationChanged(bytes32 indexed node, address indexed owner, address indexed target, bool isAuthorised);\n\n    constructor(ENS _ens) public {\n        ens = _ens;\n    }\n\n    /**\n     * @dev Sets or clears an authorisation.\n     * Authorisations are specific to the caller. Any account can set an authorisation\n     * for any name, but the authorisation that is checked will be that of the\n     * current owner of a name. Thus, transferring a name effectively clears any\n     * existing authorisations, and new authorisations can be set in advance of\n     * an ownership transfer if desired.\n     *\n     * @param node The name to change the authorisation on.\n     * @param target The address that is to be authorised or deauthorised.\n     * @param isAuthorised True if the address should be authorised, or false if it should be deauthorised.\n     */\n    function setAuthorisation(bytes32 node, address target, bool isAuthorised) external {\n        authorisations[node][msg.sender][target] = isAuthorised;\n        emit AuthorisationChanged(node, msg.sender, target, isAuthorised);\n    }\n\n    function isAuthorised(bytes32 node) internal view returns(bool) {\n        address owner = ens.owner(node);\n        return owner == msg.sender || authorisations[node][owner][msg.sender];\n    }\n}\n",
+		"@ensdomains/resolver/contracts/profiles/ABIResolver.sol": "pragma solidity ^0.5.0;\n\nimport \"../ResolverBase.sol\";\n\ncontract ABIResolver is ResolverBase {\n    bytes4 constant private ABI_INTERFACE_ID = 0x2203ab56;\n\n    event ABIChanged(bytes32 indexed node, uint256 indexed contentType);\n\n    mapping(bytes32=>mapping(uint256=>bytes)) abis;\n\n    /**\n     * Sets the ABI associated with an ENS node.\n     * Nodes may have one ABI of each content type. To remove an ABI, set it to\n     * the empty string.\n     * @param node The node to update.\n     * @param contentType The content type of the ABI\n     * @param data The ABI data.\n     */\n    function setABI(bytes32 node, uint256 contentType, bytes calldata data) external authorised(node) {\n        // Content types must be powers of 2\n        require(((contentType - 1) & contentType) == 0);\n\n        abis[node][contentType] = data;\n        emit ABIChanged(node, contentType);\n    }\n\n    /**\n     * Returns the ABI associated with an ENS node.\n     * Defined in EIP205.\n     * @param node The ENS node to query\n     * @param contentTypes A bitwise OR of the ABI formats accepted by the caller.\n     * @return contentType The content type of the return value\n     * @return data The ABI data\n     */\n    function ABI(bytes32 node, uint256 contentTypes) external view returns (uint256, bytes memory) {\n        mapping(uint256=>bytes) storage abiset = abis[node];\n\n        for (uint256 contentType = 1; contentType <= contentTypes; contentType <<= 1) {\n            if ((contentType & contentTypes) != 0 && abiset[contentType].length > 0) {\n                return (contentType, abiset[contentType]);\n            }\n        }\n\n        return (0, bytes(\"\"));\n    }\n\n    function supportsInterface(bytes4 interfaceID) public pure returns(bool) {\n        return interfaceID == ABI_INTERFACE_ID || super.supportsInterface(interfaceID);\n    }\n}\n",
+		"@ensdomains/resolver/contracts/ResolverBase.sol": "pragma solidity ^0.5.0;\n\ncontract ResolverBase {\n    bytes4 private constant INTERFACE_META_ID = 0x01ffc9a7;\n\n    function supportsInterface(bytes4 interfaceID) public pure returns(bool) {\n        return interfaceID == INTERFACE_META_ID;\n    }\n\n    function isAuthorised(bytes32 node) internal view returns(bool);\n\n    modifier authorised(bytes32 node) {\n        require(isAuthorised(node));\n        _;\n    }\n}\n",
+		"@ensdomains/resolver/contracts/profiles/AddrResolver.sol": "pragma solidity ^0.5.0;\n\nimport \"../ResolverBase.sol\";\n\ncontract AddrResolver is ResolverBase {\n    bytes4 constant private ADDR_INTERFACE_ID = 0x3b3b57de;\n\n    event AddrChanged(bytes32 indexed node, address a);\n\n    mapping(bytes32=>address) addresses;\n\n    /**\n     * Sets the address associated with an ENS node.\n     * May only be called by the owner of that node in the ENS registry.\n     * @param node The node to update.\n     * @param addr The address to set.\n     */\n    function setAddr(bytes32 node, address addr) external authorised(node) {\n        addresses[node] = addr;\n        emit AddrChanged(node, addr);\n    }\n\n    /**\n     * Returns the address associated with an ENS node.\n     * @param node The ENS node to query.\n     * @return The associated address.\n     */\n    function addr(bytes32 node) public view returns (address) {\n        return addresses[node];\n    }\n\n    function supportsInterface(bytes4 interfaceID) public pure returns(bool) {\n        return interfaceID == ADDR_INTERFACE_ID || super.supportsInterface(interfaceID);\n    }\n}\n",
+		"@ensdomains/resolver/contracts/profiles/ContentHashResolver.sol": "pragma solidity ^0.5.0;\n\nimport \"../ResolverBase.sol\";\n\ncontract ContentHashResolver is ResolverBase {\n    bytes4 constant private CONTENT_HASH_INTERFACE_ID = 0xbc1c58d1;\n\n    event ContenthashChanged(bytes32 indexed node, bytes hash);\n\n    mapping(bytes32=>bytes) hashes;\n\n    /**\n     * Sets the contenthash associated with an ENS node.\n     * May only be called by the owner of that node in the ENS registry.\n     * @param node The node to update.\n     * @param hash The contenthash to set\n     */\n    function setContenthash(bytes32 node, bytes calldata hash) external authorised(node) {\n        hashes[node] = hash;\n        emit ContenthashChanged(node, hash);\n    }\n\n    /**\n     * Returns the contenthash associated with an ENS node.\n     * @param node The ENS node to query.\n     * @return The associated contenthash.\n     */\n    function contenthash(bytes32 node) external view returns (bytes memory) {\n        return hashes[node];\n    }\n\n    function supportsInterface(bytes4 interfaceID) public pure returns(bool) {\n        return interfaceID == CONTENT_HASH_INTERFACE_ID || super.supportsInterface(interfaceID);\n    }\n}\n",
+		"@ensdomains/resolver/contracts/profiles/InterfaceResolver.sol": "pragma solidity ^0.5.0;\n\nimport \"../ResolverBase.sol\";\nimport \"./AddrResolver.sol\";\n\ncontract InterfaceResolver is ResolverBase, AddrResolver {\n    bytes4 constant private INTERFACE_INTERFACE_ID = bytes4(keccak256(\"interfaceImplementer(bytes32,bytes4)\"));\n    bytes4 private constant INTERFACE_META_ID = 0x01ffc9a7;\n\n    event InterfaceChanged(bytes32 indexed node, bytes4 indexed interfaceID, address implementer);\n\n    mapping(bytes32=>mapping(bytes4=>address)) interfaces;\n\n    /**\n     * Sets an interface associated with a name.\n     * Setting the address to 0 restores the default behaviour of querying the contract at `addr()` for interface support.\n     * @param node The node to update.\n     * @param interfaceID The EIP 168 interface ID.\n     * @param implementer The address of a contract that implements this interface for this node.\n     */\n    function setInterface(bytes32 node, bytes4 interfaceID, address implementer) external authorised(node) {\n        interfaces[node][interfaceID] = implementer;\n        emit InterfaceChanged(node, interfaceID, implementer);\n    }\n\n    /**\n     * Returns the address of a contract that implements the specified interface for this name.\n     * If an implementer has not been set for this interfaceID and name, the resolver will query\n     * the contract at `addr()`. If `addr()` is set, a contract exists at that address, and that\n     * contract implements EIP168 and returns `true` for the specified interfaceID, its address\n     * will be returned.\n     * @param node The ENS node to query.\n     * @param interfaceID The EIP 168 interface ID to check for.\n     * @return The address that implements this interface, or 0 if the interface is unsupported.\n     */\n    function interfaceImplementer(bytes32 node, bytes4 interfaceID) external view returns (address) {\n        address implementer = interfaces[node][interfaceID];\n        if(implementer != address(0)) {\n            return implementer;\n        }\n\n        address a = addr(node);\n        if(a == address(0)) {\n            return address(0);\n        }\n\n        (bool success, bytes memory returnData) = a.staticcall(abi.encodeWithSignature(\"supportsInterface(bytes4)\", INTERFACE_META_ID));\n        if(!success || returnData.length < 32 || returnData[31] == 0) {\n            // EIP 168 not supported by target\n            return address(0);\n        }\n\n        (success, returnData) = a.staticcall(abi.encodeWithSignature(\"supportsInterface(bytes4)\", interfaceID));\n        if(!success || returnData.length < 32 || returnData[31] == 0) {\n            // Specified interface not supported by target\n            return address(0);\n        }\n\n        return a;\n    }\n\n    function supportsInterface(bytes4 interfaceID) public pure returns(bool) {\n        return interfaceID == INTERFACE_INTERFACE_ID || super.supportsInterface(interfaceID);\n    }\n}\n",
+		"@ensdomains/resolver/contracts/profiles/NameResolver.sol": "pragma solidity ^0.5.0;\n\nimport \"../ResolverBase.sol\";\n\ncontract NameResolver is ResolverBase {\n    bytes4 constant private NAME_INTERFACE_ID = 0x691f3431;\n\n    event NameChanged(bytes32 indexed node, string name);\n\n    mapping(bytes32=>string) names;\n\n    /**\n     * Sets the name associated with an ENS node, for reverse records.\n     * May only be called by the owner of that node in the ENS registry.\n     * @param node The node to update.\n     * @param name The name to set.\n     */\n    function setName(bytes32 node, string calldata name) external authorised(node) {\n        names[node] = name;\n        emit NameChanged(node, name);\n    }\n\n    /**\n     * Returns the name associated with an ENS node, for reverse records.\n     * Defined in EIP181.\n     * @param node The ENS node to query.\n     * @return The associated name.\n     */\n    function name(bytes32 node) external view returns (string memory) {\n        return names[node];\n    }\n\n    function supportsInterface(bytes4 interfaceID) public pure returns(bool) {\n        return interfaceID == NAME_INTERFACE_ID || super.supportsInterface(interfaceID);\n    }\n}\n",
+		"@ensdomains/resolver/contracts/profiles/PubkeyResolver.sol": "pragma solidity ^0.5.0;\n\nimport \"../ResolverBase.sol\";\n\ncontract PubkeyResolver is ResolverBase {\n    bytes4 constant private PUBKEY_INTERFACE_ID = 0xc8690233;\n\n    event PubkeyChanged(bytes32 indexed node, bytes32 x, bytes32 y);\n\n    struct PublicKey {\n        bytes32 x;\n        bytes32 y;\n    }\n\n    mapping(bytes32=>PublicKey) pubkeys;\n\n    /**\n     * Sets the SECP256k1 public key associated with an ENS node.\n     * @param node The ENS node to query\n     * @param x the X coordinate of the curve point for the public key.\n     * @param y the Y coordinate of the curve point for the public key.\n     */\n    function setPubkey(bytes32 node, bytes32 x, bytes32 y) external authorised(node) {\n        pubkeys[node] = PublicKey(x, y);\n        emit PubkeyChanged(node, x, y);\n    }\n\n    /**\n     * Returns the SECP256k1 public key associated with an ENS node.\n     * Defined in EIP 619.\n     * @param node The ENS node to query\n     * @return x, y the X and Y coordinates of the curve point for the public key.\n     */\n    function pubkey(bytes32 node) external view returns (bytes32 x, bytes32 y) {\n        return (pubkeys[node].x, pubkeys[node].y);\n    }\n\n    function supportsInterface(bytes4 interfaceID) public pure returns(bool) {\n        return interfaceID == PUBKEY_INTERFACE_ID || super.supportsInterface(interfaceID);\n    }\n}\n",
+		"@ensdomains/resolver/contracts/profiles/TextResolver.sol": "pragma solidity ^0.5.0;\n\nimport \"../ResolverBase.sol\";\n\ncontract TextResolver is ResolverBase {\n    bytes4 constant private TEXT_INTERFACE_ID = 0x59d1d43c;\n\n    event TextChanged(bytes32 indexed node, string indexedKey, string key);\n\n    mapping(bytes32=>mapping(string=>string)) texts;\n\n    /**\n     * Sets the text data associated with an ENS node and key.\n     * May only be called by the owner of that node in the ENS registry.\n     * @param node The node to update.\n     * @param key The key to set.\n     * @param value The text data value to set.\n     */\n    function setText(bytes32 node, string calldata key, string calldata value) external authorised(node) {\n        texts[node][key] = value;\n        emit TextChanged(node, key, key);\n    }\n\n    /**\n     * Returns the text data associated with an ENS node and key.\n     * @param node The ENS node to query.\n     * @param key The text data key to query.\n     * @return The associated text data.\n     */\n    function text(bytes32 node, string calldata key) external view returns (string memory) {\n        return texts[node][key];\n    }\n\n    function supportsInterface(bytes4 interfaceID) public pure returns(bool) {\n        return interfaceID == TEXT_INTERFACE_ID || super.supportsInterface(interfaceID);\n    }\n}\n",
+		"Identity.sol": "pragma solidity ^0.5.0;\n\ncontract Identity {\n  mapping(address => bool) public accounts;\n\n  event AccountAdded(address indexed account);\n  event AccountRemoved(address indexed account);\n\n  constructor(address owner) public payable {\n    accounts[owner] = true;\n    emit AccountAdded(owner);\n  }\n\n  modifier onlyUserAccount {\n    require(accounts[msg.sender], \"Sender is not recognized\");\n    _;\n  }\n\n  function addAccount(address newAccount) onlyUserAccount public {\n    accounts[newAccount] = true;\n    emit AccountAdded(newAccount);\n  }\n\n  function removeAccount(address toRemove) onlyUserAccount public {\n    accounts[toRemove] = false;\n    emit AccountRemoved(toRemove);\n  }\n\n  // Forward arbitrary calls and funds to a third party\n  function forward(address to, uint256 value, bytes memory data) onlyUserAccount public returns (bytes memory) {\n    (bool success, bytes memory returnData) = to.call.value(value)(data);\n    require(success, \"Forwarded call failed\");\n    return returnData;\n  }\n\n  // Empty fallback function to accept deposits\n  function() external payable { }\n}"
+	},
+	"sourceTreeHashHex": "0xfac0c69064434abce535ae766fcebeb3e4e8345fca74d9e494f5e87028180301",
+	"compiler": {
+		"name": "solc",
+		"version": "soljson-v0.5.7+commit.6da8b019.js",
+		"settings": {
+			"optimizer": {
+				"enabled": false
+			},
+			"outputSelection": {
+				"*": {
+					"*": [
+						"abi",
+						"evm.bytecode.object"
+					]
+				}
+			},
+			"remappings": [
+				"@ensdomains/ens=/home/spalladino/Projects/samples/user-onboarding/node_modules/@ensdomains/ens",
+				"@ensdomains/resolver=/home/spalladino/Projects/samples/user-onboarding/node_modules/@ensdomains/resolver"
+			]
+		}
+	},
+	"networks": {}
+}

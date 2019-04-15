@@ -1,0 +1,64 @@
+{
+	"schemaVersion": "2.0.0",
+	"contractName": "DonateA",
+	"compilerOutput": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"name": "_donations",
+						"type": "address"
+					}
+				],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"payable": true,
+				"stateMutability": "payable",
+				"type": "fallback"
+			}
+		],
+		"evm": {
+			"bytecode": {
+				"linkReferences": {},
+				"object": "0x608060405234801561001057600080fd5b506040516020806101428339810180604052602081101561003057600080fd5b8101908080519060200190929190505050806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505060b2806100906000396000f3fe60806040526000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166363420a5c346040518263ffffffff1660e01b81526004016000604051808303818588803b158015606c57600080fd5b505af1158015607f573d6000803e3d6000fd5b505050505000fea165627a7a723058207b73cdcdd9b321c1285782e510f73f7d24bcce6d9bc3b2a7b502620260714a310029",
+				"opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE CALLVALUE DUP1 ISZERO PUSH2 0x10 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH1 0x40 MLOAD PUSH1 0x20 DUP1 PUSH2 0x142 DUP4 CODECOPY DUP2 ADD DUP1 PUSH1 0x40 MSTORE PUSH1 0x20 DUP2 LT ISZERO PUSH2 0x30 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST DUP2 ADD SWAP1 DUP1 DUP1 MLOAD SWAP1 PUSH1 0x20 ADD SWAP1 SWAP3 SWAP2 SWAP1 POP POP POP DUP1 PUSH1 0x0 DUP1 PUSH2 0x100 EXP DUP2 SLOAD DUP2 PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF MUL NOT AND SWAP1 DUP4 PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND MUL OR SWAP1 SSTORE POP POP PUSH1 0xB2 DUP1 PUSH2 0x90 PUSH1 0x0 CODECOPY PUSH1 0x0 RETURN INVALID PUSH1 0x80 PUSH1 0x40 MSTORE PUSH1 0x0 DUP1 SWAP1 SLOAD SWAP1 PUSH2 0x100 EXP SWAP1 DIV PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND PUSH20 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF AND PUSH4 0x63420A5C CALLVALUE PUSH1 0x40 MLOAD DUP3 PUSH4 0xFFFFFFFF AND PUSH1 0xE0 SHL DUP2 MSTORE PUSH1 0x4 ADD PUSH1 0x0 PUSH1 0x40 MLOAD DUP1 DUP4 SUB DUP2 DUP6 DUP9 DUP1 EXTCODESIZE ISZERO DUP1 ISZERO PUSH1 0x6C JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP GAS CALL ISZERO DUP1 ISZERO PUSH1 0x7F JUMPI RETURNDATASIZE PUSH1 0x0 DUP1 RETURNDATACOPY RETURNDATASIZE PUSH1 0x0 REVERT JUMPDEST POP POP POP POP POP STOP INVALID LOG1 PUSH6 0x627A7A723058 KECCAK256 PUSH28 0x73CDCDD9B321C1285782E510F73F7D24BCCE6D9BC3B2A7B502620260 PUSH18 0x4A3100290000000000000000000000000000 ",
+				"sourceMap": "52:204:0:-;;;99:74;8:9:-1;5:2;;;30:1;27;20:12;5:2;99:74:0;;;;;;;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;99:74:0;;;;;;;;;;;;;;;;158:10;146:9;;:22;;;;;;;;;;;;;;;;;;99:74;52:204;;;;;;"
+			}
+		}
+	},
+	"sources": {
+		"DonateA.sol": {
+			"id": 0
+		},
+		"Donations.sol": {
+			"id": 2
+		}
+	},
+	"sourceCodes": {
+		"DonateA.sol": "pragma solidity ^0.5.0;\n\nimport \"./Donations.sol\";\n\ncontract DonateA {\n  Donations donations;\n  \n  constructor(Donations _donations) public {\n    donations = _donations;\n  }\n  \n  function() external payable {\n    donations.donateA.value(msg.value)();\n  }\n}",
+		"Donations.sol": "pragma solidity ^0.5.0;\n\ncontract Donations {\n  uint256 fundsA;\n  uint256 fundsB;\n  \n  uint256 timeEnd;\n  address payable walletA;\n  address payable walletB;\n  \n  constructor(\n      uint256 _timeEnd, \n      address payable _walletA, \n      address payable _walletB) public {\n    timeEnd = _timeEnd;\n    walletA = _walletA;\n    walletB = _walletB;\n  }\n  \n  function donateA() external payable {\n    require(now <= timeEnd && msg.value > 0);\n    fundsA += msg.value;\n  }\n\n  function donateB() external payable {\n    require(now <= timeEnd && msg.value > 0);\n    fundsB += msg.value;\n  }\n\n  function finish() external {\n    require(now > timeEnd && fundsA != fundsB);\n    address payable winner \n      = (fundsA > fundsB) ? walletA : walletB;\n    winner.transfer(fundsA + fundsB);\n  }\n}"
+	},
+	"sourceTreeHashHex": "0xed41a407dc39a59f1d7935cb092ea7275860c4216c904247f6d3c5056067c672",
+	"compiler": {
+		"name": "solc",
+		"version": "soljson-v0.5.7+commit.6da8b019.js",
+		"settings": {
+			"optimizer": {
+				"enabled": false
+			},
+			"outputSelection": {
+				"*": {
+					"*": [
+						"abi",
+						"evm.bytecode.object"
+					]
+				}
+			},
+			"remappings": []
+		}
+	},
+	"networks": {}
+}
