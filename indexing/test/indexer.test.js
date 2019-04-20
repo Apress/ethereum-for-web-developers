@@ -33,8 +33,7 @@ describe('indexer', function () {
   });
 
   beforeEach('take snapshot', async function () {
-    const { result } = await takeSnapshot(web3);
-    this.snapshotId = result;
+    this.snapshotId = await takeSnapshot(web3);
   });
 
   afterEach('revert to snapshot', async function () {
@@ -77,12 +76,33 @@ describe('indexer', function () {
     const [from, sender, receiver] = this.accounts;
     await this.erc20.methods.mint(sender, 1000).send({ from });
     await mineBlocks(web3, 3);
-    await this.indexer.processNewBlocks();
-    expect(this.indexer.getBalances()[sender]).to.be.bignumber.eq("1000");
-
     await this.erc20.methods.transfer(receiver, 200).send({ from: sender });
     await this.indexer.processNewBlocks();
     expect(this.indexer.getBalances()[sender]).to.be.bignumber.eq("1000");
+  });
+
+  it('handles reorganizations', async function () {
+    const [from, sender, r1, r2] = this.accounts;
+    await this.erc20.methods.mint(sender, 1000).send({ from });
+    const snapshotId = await takeSnapshot(web3);
+    
+    await this.erc20.methods.transfer(r1, 200).send({ from: sender });
+    await this.erc20.methods.transfer(r2, 200).send({ from: sender });
+    await mineBlocks(web3, 3);
+    
+    await this.indexer.processNewBlocks();
+    expect(this.indexer.getBalances()[sender]).to.be.bignumber.eq("600");
+    expect(this.indexer.getBalances()[r1]).to.be.bignumber.eq("200");
+    expect(this.indexer.getBalances()[r2]).to.be.bignumber.eq("200");
+
+    await revertToSnapshot(web3, snapshotId);
+    await this.erc20.methods.transfer(r1, 300).send({ from: sender });
+    await mineBlocks(web3, 5);
+    
+    await this.indexer.processNewBlocks();
+    expect(this.indexer.getBalances()[sender]).to.be.bignumber.eq("700");
+    expect(this.indexer.getBalances()[r1]).to.be.bignumber.eq("300");
+    expect(this.indexer.getBalances()[r2]).to.be.bignumber.eq("0");
   });
 
 });

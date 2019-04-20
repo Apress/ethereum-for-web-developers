@@ -34,10 +34,6 @@ function main () {
     );
   });
 
-  app.get('/block.json', (_req, res) => {
-    res.send({ block: indexer.getLastBlock() });
-  })
-
   app.listen(PORT);
   indexer.start();
 };

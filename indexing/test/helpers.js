@@ -7,7 +7,7 @@ function rpcSend(web3, method, ... params) {
 }
 
 function takeSnapshot(web3) {
-  return rpcSend(web3, "evm_snapshot");
+  return rpcSend(web3, "evm_snapshot").then(r => r.result);
 }
 
 function revertToSnapshot(web3, id) {
