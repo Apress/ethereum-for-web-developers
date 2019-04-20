@@ -6,7 +6,7 @@ const BigNumber = require('bignumber.js');
 const Web3 = require('web3');
 
 module.exports = class ERC20Indexer {
-  constructor({ address, startBlock, provider, batchSize, debug } = {}) {
+  constructor({ address, startBlock, provider, batchSize, debug, confirmations } = {}) {
     this.balances = {};
     this.lastBlockEnqueued = null;
     this.lastBlockProcessed = null;
@@ -18,6 +18,7 @@ module.exports = class ERC20Indexer {
     this.batchSize = batchSize || 100;
     this.provider = provider;
     this.debug = debug;
+    this.confirmations = confirmations || CONFIRMATIONS;
 
     this.web3 = new Web3(this.provider);
     this.contract = new this.web3.eth.Contract(ERC20Artifact.abi, this.address);
@@ -62,7 +63,7 @@ module.exports = class ERC20Indexer {
   }
 
   async processNewBlocks() {
-    const currentBlock = await this.web3.eth.getBlockNumber() - CONFIRMATIONS;
+    const currentBlock = await this.web3.eth.getBlockNumber() - this.confirmations;
     if (!this.lastBlock || currentBlock >= this.lastBlock) {
       await this.processBlocks(this.lastBlock, currentBlock)
       this.lastBlock = currentBlock + 1;
