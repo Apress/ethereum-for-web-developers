@@ -33,7 +33,7 @@ describe('indexer', function () {
   
   before('setup', async function () {
     this.accounts = await web3.eth.getAccounts();
-    this.erc20 = await ERC20.deploy().send();
+    this.erc20 = await ERC20.deploy().send({ from: this.accounts[0] });
   });
 
   beforeEach('create indexer', function () {
