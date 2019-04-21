@@ -52,7 +52,7 @@ module.exports = class ERC20Indexer {
   }
 
   async saveEvent(event) {
-    if (!last(this.eventsBlocks) || last(this.eventsBlocks).blockHash !== event.blockHash) {
+    if (!last(this.eventsBlocks) || last(this.eventsBlocks).hash !== event.blockHash) {
       this.eventsBlocks.push({ 
         number: event.blockNumber, 
         hash: event.blockHash, 
@@ -129,7 +129,7 @@ module.exports = class ERC20Indexer {
     }, 1000);
   }
 
-  stop() {
+  async stop() {
     if (this.timeout) {
       clearTimeout(this.timeout);
     }

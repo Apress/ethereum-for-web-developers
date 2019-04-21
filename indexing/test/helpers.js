@@ -1,8 +1,9 @@
 const util = require('util');
 
 function rpcSend(web3, method, ... params) {
+  const id = parseInt(Math.random() * 1e9).toString();
   return util.promisify(web3.currentProvider.send).call(web3.currentProvider, {
-    jsonrpc: "2.0", method, params
+    id, jsonrpc: "2.0", method, params
   });
 }
 

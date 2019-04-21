@@ -4,7 +4,7 @@ const expect = chai.expect;
 
 const Web3 = require('web3');
 const ERC20Artifact = require('../artifacts/MockERC20.json');
-const indexer = require('../indexer');
+const Indexer = require('../reorgs-indexer');
 const { takeSnapshot, revertToSnapshot, mineBlocks } = require('./helpers');
 
 const PROVIDER_URL = 'http://localhost:9545';
@@ -20,16 +20,17 @@ describe('indexer', function () {
   });
 
   beforeEach('create indexer', function () {
-    this.indexer = new indexer({ 
+    this.indexer = new Indexer({ 
       provider: PROVIDER_URL, 
       address: this.erc20.options.address, 
       startBlock: 0,
-      confirmations: 3
+      confirmations: 3,
+      debug: false
     });
   });
 
-  afterEach('stop indexer', function () {
-    this.indexer.stop();
+  afterEach('stop indexer', async function () {
+    await this.indexer.stop();
   });
 
   beforeEach('take snapshot', async function () {

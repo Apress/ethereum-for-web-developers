@@ -1,4 +1,4 @@
-const Indexer = require('./indexer');
+const Indexer = require('./reorgs-indexer');
 const express = require('express')
 const mapValues = require('lodash.mapvalues');
 
