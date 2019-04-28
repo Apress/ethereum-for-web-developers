@@ -1,0 +1,34 @@
+.ERC721 {
+  border: 1px black solid;
+  border-radius: 10px;
+  background-color: #282c34;
+  padding: 50px;
+  min-height: 200px;
+}
+
+.ERC721-address {
+  font-size: 50%;
+}
+
+.ERC721-notifications {
+  font-size: 75%;
+}
+
+.ERC721-unconfirmed {
+  color: lightskyblue;
+}
+
+.ERC721 button {
+  margin: 3em;
+  padding: 0.5em;
+  border-radius: 3px;
+}
+
+.ERC721-token-id {
+  display: inline-block;
+  margin: 5px;
+}
+
+.ERC721-token-status {
+  font-size: 50%;
+}
