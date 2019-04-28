@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { createHash } from 'crypto';
 import './ERC721.css';
 import './Token.js';
 import { getBlockNumber, getWeb3 } from '../eth/network';
@@ -115,8 +116,10 @@ class ERC721 extends Component {
   loadTokensData(tokens) {
     tokens.forEach(async ({ id }) => {
       const url = await this.props.contract.methods.tokenURI(id).call();
-      const data = await fetch(url).then(r => r.json()).catch(_err => ({}));
-      this.setTokenData(id, data);
+      const data = await fetch(url).then(res => res.json()).catch(() => "");
+      const hash = createHash('sha256').update(JSON.stringify(data)).digest('hex');
+      const path = new URL(url).pathname.slice(1);
+      if (path === hash) this.setTokenData(id, data);
     });
   }
 
