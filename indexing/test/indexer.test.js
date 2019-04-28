@@ -1,16 +1,14 @@
-const chai = require('chai');
-chai.use(require('chai-bignumber')());
-const expect = chai.expect;
+const expect = require('chai').use(require('chai-bignumber')()).expect;
 
 const Web3 = require('web3');
-const ERC20Artifact = require('../artifacts/MockERC20.json');
+const ERC20Artifact = require('../artifacts/MockERC20.json').compilerOutput;
 const Indexer = require('../reorgs-indexer');
 const { takeSnapshot, revertToSnapshot, mineBlocks } = require('./helpers');
 
 const PROVIDER_URL = 'http://localhost:9545';
 
 const web3 = new Web3(PROVIDER_URL);
-const ERC20 = new web3.eth.Contract(ERC20Artifact.compilerOutput.abi, null, { data: ERC20Artifact.compilerOutput.evm.bytecode.object });
+const ERC20 = new web3.eth.Contract(ERC20Artifact.abi, null, { data: ERC20Artifact.evm.bytecode.object });
 
 describe('indexer', function () {
   
