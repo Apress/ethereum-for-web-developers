@@ -14,3 +14,10 @@ export async function save(_id, data) {
 
   return url;
 }
+
+export async function load(url) {
+  const data = await fetch(url).then(res => res.json()).catch(() => "");
+  const hash = createHash('sha256').update(JSON.stringify(data)).digest('hex');
+  const path = new URL(url).pathname.slice(1);
+  if (path === hash) return data;
+}

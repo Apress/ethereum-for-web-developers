@@ -6,11 +6,16 @@ import { getBlockNumber, getWeb3 } from '../eth/network';
 import BigNumber from 'bignumber.js';
 import { getGasPrice } from '../eth/gasPrice';
 import { areAddressesEqual } from '../eth/address';
-import { save as saveLocal } from '../storage/local';
+import { save as saveLocal, load as loadLocal } from '../storage/local';
+import { save as saveIPFS, load as loadIPFS } from '../storage/ipfs';
 import Token from './Token.js';
 import Mint from './Mint';
 
 const CONFIRMATIONS = 6;
+
+// Change these two lines to saveLocal or loadLocal to use a local storage server
+const saveData = saveIPFS;
+const loadData = loadIPFS;
 
 class ERC721 extends Component {
   constructor(props) {
@@ -43,7 +48,7 @@ class ERC721 extends Component {
     const { contract, owner } = this.props;
     const from = owner;
     const data = JSON.stringify({ id, title, description });
-    const url = await saveLocal(id, data);
+    const url = await saveData(id, data);
     const value = new BigNumber(id).shiftedBy(12).toString(10);
 
     const gas = await contract.methods.mint(owner, id, url).estimateGas({ value, from });
@@ -116,10 +121,8 @@ class ERC721 extends Component {
   loadTokensData(tokens) {
     tokens.forEach(async ({ id }) => {
       const url = await this.props.contract.methods.tokenURI(id).call();
-      const data = await fetch(url).then(res => res.json()).catch(() => "");
-      const hash = createHash('sha256').update(JSON.stringify(data)).digest('hex');
-      const path = new URL(url).pathname.slice(1);
-      if (path === hash) this.setTokenData(id, data);
+      const data = await loadData(url);
+      if (data) this.setTokenData(id, data);
     });
   }
 
