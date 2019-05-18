@@ -7,84 +7,61 @@ contract BidirectionalPaymentChannel {
 
   uint256 constant closePeriod = 1 days;
 
-  address payable p1;
-  address payable p2;
+  address payable user1;
+  address payable user2;
 
-  uint256 deposit1;
-  uint256 deposit2;
+  uint256 balance1;
+  uint256 balance2;
+  uint256 lastNonce;  
 
   uint256 closeTime;
-  uint256 closeNonce;
-  int256  closeBalance;
   address closeRequestedBy;
 
-  constructor(address payable _p1, address payable _p2) public {
-    p1 = _p1;
-    p2 = _p2;
+  constructor(address payable _user2) public payable {
+    balance1 = msg.value;
+    user1 = msg.sender;
+    user2 = _user2;
   }
 
-  function() external payable {
-    if (msg.sender == p1) {
-      deposit1 += msg.value;
-    } else if (msg.sender == p2) {
-      deposit2 += msg.value;
-    } else {
-      revert();
-    }
+  function join() public payable {
+    require(msg.sender == user2 && balance2 == 0);
+    balance2 = msg.value;
   }
 
-  // TODO: Handle a participant never sending a message
-  function startClose(int256 balance, uint256 nonce, bytes memory signature) public {
-    require(msg.sender == p1 || msg.sender == p2);
-    require(closeTime == 0 || nonce > closeNonce);
+  modifier onlyParticipant() {
+    require(msg.sender == user1 || msg.sender == user2);
+    _;
+  }
 
-    bytes32 hash = keccak256(abi.encodePacked(balance, nonce, address(this))).toEthSignedMessageHash();
-    address signer = hash.recover(signature);
-    require(signer == p1 || signer == p2);
-    require(signer != msg.sender);
-
+  function close() onlyParticipant public {
+    require(closeTime == 0);
     closeRequestedBy = msg.sender;
     closeTime = now;
-    closeNonce = nonce;
-    closeBalance = balance;
   }
 
-  function confirmClose(uint256 nonce) public {
-    require(msg.sender == p1 || msg.sender == p2);
-    require(closeNonce == nonce);
-    require(closeRequestedBy != msg.sender);
+  function closeWithState(uint256 newBalance1, uint256 newBalance2, uint256 nonce, bytes memory signature) onlyParticipant public {
+    require(nonce > lastNonce);
+    require(newBalance1 + newBalance2 == address(this).balance);
+    
+    bytes32 hash = keccak256(abi.encodePacked(newBalance1, newBalance2, nonce, address(this))).toEthSignedMessageHash();
+    address signer = hash.recover(signature);
+    require(signer == user1 || signer == user2, "Signer must be one of the participants");
+    require(signer != msg.sender, "Signer must not be sender");
 
-    executeClose();
+    balance1 = newBalance1;
+    balance2 = newBalance2;
+    lastNonce = nonce;
+    
+    closeRequestedBy = msg.sender;
+    closeTime = now;
   }
 
-  function forceClose() public {
-    require(msg.sender == p1 || msg.sender == p2);
-    require(closeTime != 0 && closeTime + closePeriod > now);
+  function confirmClose() onlyParticipant public {
+    bool challengeEnded = closeTime != 0 && closeTime + closePeriod > now;
+    require(closeRequestedBy != msg.sender || challengeEnded);
 
-    executeClose();
-  }
-
-  function executeClose() internal {
-    uint256 funds = address(this).balance;
-    address payable beneficiary;
-    address payable payer;
-    uint256 deposit;
-    uint256 value;
-
-    if (closeBalance > 0) {
-      beneficiary = p1;
-      payer = p2;
-      deposit = deposit1;
-      value = uint256(closeBalance);
-    } else {
-      beneficiary = p2;
-      payer = p1;
-      deposit = deposit2;
-      value = uint256(-closeBalance);
-    }
-
-    uint256 toSend = value + deposit;
-    beneficiary.transfer(toSend > funds ? funds : toSend);    
-    selfdestruct(payer);
+    user1.transfer(balance1);
+    user2.transfer(balance2);
+    selfdestruct(user1);
   }
 }
