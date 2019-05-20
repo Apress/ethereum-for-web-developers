@@ -6,13 +6,18 @@ export default function PaymentChannel(web3, address, options) {
   return new web3.eth.Contract(abi, address, { data, ...options });
 }
 
-export function signPayment(web3, value, address, senderPk) {
+export async function signPayment(web3, value, address, sender) {
   const hash = web3.utils.soliditySha3(
     { type: 'uint256', value: value.toString() },
     { type: 'address', value: address }
   );
-  const { signature } = web3.eth.accounts.sign(hash, senderPk);
-  return signature;
+  const signature = await web3.eth.sign(hash, sender);
+  
+  // FIX: eth.sign is returning an invalid recovery value (v from r,s,v)
+  // To be compliant with EIP155 we need to add 27 to it
+  const v = signature.substr(signature.length - 2);
+  const fixedV = (parseInt(v, 16) + 27).toString(16);
+  return signature.slice(0, signature.length - 2) + fixedV;
 }
 
 export function recoverPayment(web3, value, address, signature) {  

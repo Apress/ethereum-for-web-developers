@@ -9,15 +9,14 @@ class Recipient extends React.Component {
     super(props);
     this.state = {};
     this.closeChannel = this.closeChannel.bind(this);
+    this.p2p = new BroadcastChannel('payments');
+    this.p2p.onmessage = (evt) => this.handleMessage(evt.data);
   }
 
   async componentWillMount() {
-    const p2p = new BroadcastChannel('payments');
-    p2p.onmessage = (evt) => this.handleMessage(evt.data);
-    
     const { web3, recipient } = this.props;
     const balance = BN(await web3.eth.getBalance(recipient));
-    this.setState({ p2p, balance });
+    this.setState({ balance });
   }
 
   handleMessage(data) {
@@ -70,6 +69,8 @@ class Recipient extends React.Component {
 
   render() {
     const { channel, received, deposit, balance } = this.state;
+    const { recipient } = this.props;
+
     const content = channel
       ? (<div>
         <ChannelStats address={channel.options.address} transferred={received} deposit={deposit} isRecipient={true} />
@@ -79,6 +80,7 @@ class Recipient extends React.Component {
 
     return (<div>
         <h1>Recipient</h1>
+        <p>{recipient}</p>
         <p>Balance: {balance ? toEth(balance) : '...'}</p>
         {content}
       </div>);

@@ -9,40 +9,36 @@ import { toEth } from '../eth/utils';
 class Sender extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {};
     this.deployChannel = this.deployChannel.bind(this);
     this.sendEth = this.sendEth.bind(this);
+    this.p2p = new BroadcastChannel('payments');
   }
 
-  componentWillMount() {
-    // Sample p2p connection using a broadcast channel
-    this.setState({ p2p: new BroadcastChannel('payments') });
-  }
-
-  sendEth(value) {
-    const { web3, senderPk } = this.props;
-    const { sent, channel, p2p } = this.state;
+  async sendEth(value) {
+    const { web3, senderPk, sender } = this.props;
+    const { sent, channel } = this.state;
 
     const newSent = sent.plus(value);
-    const signature = signPayment(
-      web3, newSent, channel.options.address, senderPk
+    const signature = await signPayment(
+      web3, newSent, channel.options.address, senderPk, sender
     );
 
-    p2p.postMessage({ action: "PAYMENT", sent: newSent.toString(), signature });
+    this.p2p.postMessage({ action: "PAYMENT", sent: newSent.toString(), signature });
     console.log(`Sent signed message for ${toEth(newSent)} (${signature})`);
     this.setState({ sent: newSent });
   }
 
   async deployChannel(deposit) {
     const { web3, sender, recipient } = this.props;
-    const { p2p } = this.state;
 
-    const endTime = +(new Date()) +(30 * 1000);
+    const endTime = +(new Date()) +(300 * 1000);
     const channel = await PaymentChannel(web3)
       .deploy({ arguments: [recipient, endTime] })
       .send({ value: deposit.toString(), from: sender, gas: 1e6 });
     
     const address = channel.options.address;
-    p2p.postMessage({ action: "CHANNEL_DEPLOYED", address, deposit: deposit.toString() });
+    this.p2p.postMessage({ action: "CHANNEL_DEPLOYED", address, deposit: deposit.toString() });
     console.log(`Deployed channel at ${address}`);
     
     this.setState({ 
@@ -54,16 +50,18 @@ class Sender extends React.Component {
 
   render() {
     const { channel, sent, deposit } = this.state;
-    return channel 
+    const { sender } = this.props;
+    const content = channel 
       ? (<div>
-        <h1>Sender</h1>
-        <ChannelStats address={channel.options.address} transferred={sent} deposit={deposit} />
-        <SendEther onSend={this.sendEth} />
-      </div>)
-      : (<div>
-        <h1>Sender</h1>
-        <CreateChannel onDeploy={this.deployChannel} />
-      </div>);
+          <ChannelStats address={channel.options.address} transferred={sent} deposit={deposit} />
+          <SendEther onSend={this.sendEth} />
+        </div>)
+      : (<CreateChannel onDeploy={this.deployChannel} />);
+    return (<div>
+      <h1>Sender</h1>
+      <p>{sender}</p>
+      {content}
+    </div>);
   }
 }
 
