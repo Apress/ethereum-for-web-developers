@@ -12,19 +12,19 @@ class Sender extends React.Component {
     this.state = {};
     this.deployChannel = this.deployChannel.bind(this);
     this.sendEth = this.sendEth.bind(this);
-    this.p2p = new BroadcastChannel('payments');
+    this.broadcastChannel = new BroadcastChannel('payments');
   }
 
   async sendEth(value) {
-    const { web3, senderPk, sender } = this.props;
+    const { web3, sender } = this.props;
     const { sent, channel } = this.state;
 
     const newSent = sent.plus(value);
     const signature = await signPayment(
-      web3, newSent, channel.options.address, senderPk, sender
+      web3, newSent, channel.options.address, sender
     );
 
-    this.p2p.postMessage({ action: "PAYMENT", sent: newSent.toString(), signature });
+    this.broadcastChannel.postMessage({ action: "PAYMENT", sent: newSent.toString(), signature });
     console.log(`Sent signed message for ${toEth(newSent)} (${signature})`);
     this.setState({ sent: newSent });
   }
@@ -38,7 +38,7 @@ class Sender extends React.Component {
       .send({ value: deposit.toString(), from: sender, gas: 1e6 });
     
     const address = channel.options.address;
-    this.p2p.postMessage({ action: "CHANNEL_DEPLOYED", address, deposit: deposit.toString() });
+    this.broadcastChannel.postMessage({ action: "CHANNEL_DEPLOYED", address });
     console.log(`Deployed channel at ${address}`);
     
     this.setState({ 

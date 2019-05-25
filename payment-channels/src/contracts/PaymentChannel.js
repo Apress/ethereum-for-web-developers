@@ -15,8 +15,8 @@ export async function signPayment(web3, value, address, sender) {
   
   // FIX: eth.sign is returning an invalid recovery value (v from r,s,v)
   // To be compliant with EIP155 we need to add 27 to it
-  const v = signature.substr(signature.length - 2);
-  const fixedV = (parseInt(v, 16) + 27).toString(16);
+  const v = parseInt(signature.substr(signature.length - 2), 16);
+  const fixedV = (v <= 1 ? v + 27 : v).toString(16);
   return signature.slice(0, signature.length - 2) + fixedV;
 }
 
@@ -27,4 +27,10 @@ export function recoverPayment(web3, value, address, signature) {
   );
   const signer = web3.eth.accounts.recover(hash, signature);
   return signer;
+}
+
+export async function checkBytecode(web3, address) {
+  const actual = await web3.eth.getCode(address);
+  const expected = Artifact.compilerOutput.evm.deployedBytecode.object;
+  return actual === expected;
 }

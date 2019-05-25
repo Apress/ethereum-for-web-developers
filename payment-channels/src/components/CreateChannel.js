@@ -22,7 +22,7 @@ class CreateChannel extends React.Component {
         <h3>Deploy payment channel</h3>
         <p>
           <label>Deposit in ETH: </label>
-          <input type="number" ref={this.depositInput} defaultValue={1}></input>
+          <input style={{ width: 60 }} type="number" ref={this.depositInput} defaultValue={1}></input>
           <button disabled={this.state.deploying} onClick={this.handleDeploy}>Deploy</button>
         </p>
       </div>

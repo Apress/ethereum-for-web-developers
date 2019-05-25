@@ -1,5 +1,5 @@
 import React from 'react';
-import PaymentChannel, { recoverPayment } from '../contracts/PaymentChannel';
+import PaymentChannel, { recoverPayment, checkBytecode } from '../contracts/PaymentChannel';
 import BN from 'bignumber.js';
 import ChannelStats from './ChannelStats';
 import { toEth, areAddressesEqual } from '../eth/utils';
@@ -9,8 +9,8 @@ class Recipient extends React.Component {
     super(props);
     this.state = {};
     this.closeChannel = this.closeChannel.bind(this);
-    this.p2p = new BroadcastChannel('payments');
-    this.p2p.onmessage = (evt) => this.handleMessage(evt.data);
+    this.broadcastChannel = new BroadcastChannel('payments');
+    this.broadcastChannel.onmessage = (evt) => this.handleMessage(evt.data);
   }
 
   async componentWillMount() {
@@ -21,29 +21,42 @@ class Recipient extends React.Component {
 
   handleMessage(data) {
     const action = data.action;
-    switch (action) {
-      
+    switch (action) {      
       case "CHANNEL_DEPLOYED":
-        console.log(`Channel opened at ${data.address} with deposit of ${toEth(data.deposit)}`);
-        this.setState({ 
-          channel: PaymentChannel(this.props.web3, data.address), 
-          deposit: BN(data.deposit), 
-          received: BN(0) 
-        });
+        this.onChannelDeployed(data);
         break;
       
       case "PAYMENT":
-        console.log(`Payment messaged received for a total of ${toEth(data.sent)}`);
-        if (this.verifyMessage(data)) {
-          this.setState({ 
-            received: BN(data.sent),
-            signature: data.signature
-          });
-        }
+        this.onPaymentReceived(data);
         break;
 
       default:
         console.error("Unexpected message", data);
+    }
+  }
+
+  onPaymentReceived(data) {
+    console.log(`Payment messaged received for a total of ${toEth(data.sent)}`);
+    if (this.verifyMessage(data)) {
+      this.setState({
+        received: BN(data.sent),
+        signature: data.signature
+      });
+    }
+  }
+
+  async onChannelDeployed(data) {
+    console.log(`Channel opened at ${data.address}`);
+    if (await checkBytecode(this.props.web3, data.address)) {
+      const { web3 } = this.props;
+      const deposit = await web3.eth.getBalance(data.address);
+      this.setState({
+        channel: PaymentChannel(web3, data.address),
+        deposit: BN(deposit),
+        received: BN(0)
+      });
+    } else {
+      console.error("Contract bytecode does not match");
     }
   }
 

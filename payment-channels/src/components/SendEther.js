@@ -20,7 +20,7 @@ class SendEther extends React.Component {
         <h3>Send micropayment</h3>
         <p>
           <label>Value in ETH: </label>
-          <input type="number" ref={this.valueInput} defaultValue={0.1}></input>
+          <input style={{ width: 60 }} type="number" ref={this.valueInput} defaultValue={0.1}></input>
           <button onClick={this.handleSend}>Send</button>
         </p>
       </div>
