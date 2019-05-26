@@ -1,0 +1,5 @@
+miner*/geth
+node*/geth
+*.ipc
+history
+log.txt
