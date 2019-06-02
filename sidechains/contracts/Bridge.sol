@@ -16,9 +16,9 @@ contract Bridge {
   }
 
   event Locked(uint256 id, uint256 amount, address recipient);
-  event Unlocked(uint256 id, uint256 amount, address payable recipient);
+  event Unlocked(uint256 id, uint256 amount, address recipient);
 
-  constructor(uint256 _threshold, address[] memory _validators) public {
+  constructor(uint256 _threshold, address[] memory _validators) public payable {
     threshold = _threshold;
     for (uint256 i = 0; i < _validators.length; i++) {
       validators[_validators[i]] = true;
@@ -48,6 +48,4 @@ contract Bridge {
       emit Unlocked(id, amount, recipient);
     }
   }
-
-  function() payable external {}
 }
