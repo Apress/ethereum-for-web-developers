@@ -36,10 +36,11 @@ class Recipient extends React.Component {
   }
 
   onPaymentReceived(data) {
-    console.log(`Payment messaged received for a total of ${toEth(data.sent)}`);
-    if (this.verifyMessage(data)) {
+    const sent = BN(data.sent);
+    if (this.verifyMessage(data) && data.sent.gt(this.state.received)) {
+      console.log(`Payment messaged received for a total of ${toEth(data.sent)}`);
       this.setState({
-        received: BN(data.sent),
+        received: sent,
         signature: data.signature
       });
     }

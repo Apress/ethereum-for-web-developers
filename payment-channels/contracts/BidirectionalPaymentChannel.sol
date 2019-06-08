@@ -60,8 +60,7 @@ contract BidirectionalPaymentChannel {
     bool challengeEnded = closeTime != 0 && closeTime + closePeriod > now;
     require(closeRequestedBy != msg.sender || challengeEnded);
 
-    user1.transfer(balance1);
-    user2.transfer(balance2);
+    user2.send(balance2);
     selfdestruct(user1);
   }
 }

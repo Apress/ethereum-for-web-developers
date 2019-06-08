@@ -8,7 +8,6 @@ contract PaymentChannel {
   address payable sender;
   address payable recipient;
   uint256 endTime;
-  bool closed;
 
   constructor(address payable _recipient, uint256 _endTime) public payable {
     sender = msg.sender;
@@ -28,14 +27,12 @@ contract PaymentChannel {
 
   // Recipient can submit proof and cash out
   function close(uint256 value, bytes memory signature) public {
-    require(!closed);
     require(msg.sender == recipient);
     
     bytes32 hash = keccak256(abi.encodePacked(value, address(this))).toEthSignedMessageHash();
     address signer = hash.recover(signature);
     require(signer == sender);
 
-    closed = true;
     uint256 funds = address(this).balance;
     recipient.transfer(funds < value ? funds : value);
     selfdestruct(sender);
