@@ -1,10 +1,10 @@
 const Web3 = require('web3');
-const GreeterArtifact = require('../build/contracts/Greeter.json');
+const GreeterArtifact = require('../artifacts/Greeter.json');
 
 async function main() {
   const providerUrl = process.env.PROVIDER_URL || 'http://localhost:8545';
   const web3 = new Web3(providerUrl);
-  const from = (await web3.eth.getAccounts())[0];
+  const [from] = await web3.eth.getAccounts();
   const gas = 1e6;
   const data = GreeterArtifact.compilerOutput.evm.bytecode.object;
   const abi = GreeterArtifact.compilerOutput.abi;

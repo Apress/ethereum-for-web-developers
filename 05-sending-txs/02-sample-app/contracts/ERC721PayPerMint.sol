@@ -13,7 +13,7 @@ contract ERC721PayPerMint is ERC721, ERC721Enumerable, Ownable {
   }
 
   function mint(address to, uint256 tokenId) public payable returns (bool) {
-    require(msg.value >= tokenId.mul(1e12));
+    require(msg.value >= tokenId.mul(1e12), "Insufficient payment");
     _mint(to, tokenId);
     return true;
   }

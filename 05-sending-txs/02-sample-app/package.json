@@ -2,13 +2,12 @@
   "name": "sample-write-dapp",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://spalladino.github.io/sample-write-dapp/",
+  "homepage": "https://github.com/spalladino/ethereum-samples#readme",
   "author": {
     "name": "Santiago Palladino",
     "email": "spalladino@gmail.com"
   },
   "dependencies": {
-    "@0x/sol-compiler": "^2.0.2",
     "axios": "^0.18.0",
     "bignumber.js": "^8.0.2",
     "openzeppelin-solidity": "^2.1.2",
@@ -20,7 +19,6 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "./scripts/test.sh",
     "eject": "react-scripts eject",
     "compile": "sol-compiler",
     "deploy": "node ./scripts/deploy.js",
@@ -39,7 +37,6 @@
     "chai": "^4.2.0",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.7.0",
-    "ganache-cli": "^6.2.3",
     "gh-pages": "^2.0.1"
   }
 }
