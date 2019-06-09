@@ -15,10 +15,10 @@ cleanup() {
 
 # Start ganache instance and save pid
 start_ganache() {
-  ./node_modules/.bin/ganache-cli -p 9545 > /dev/null &
+  ganache-cli -p 9545 > /dev/null &
   ganache_pid=$!
 }
 
 # Fire up ganache and tests
 start_ganache
-./node_modules/.bin/react-scripts test "$@"
+npx react-scripts test "$@"

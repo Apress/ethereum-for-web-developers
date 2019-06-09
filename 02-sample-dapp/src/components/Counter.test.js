@@ -36,13 +36,13 @@ describe('<Counter />', function() {
 
   it('renders initial value', async function() {
     await wrapper.instance().componentDidMount();
-    expect(wrapper.text()).to.include("Value: 1");
+    expect(wrapper.text()).to.include("value: 1");
   });
 
   it('renders externally updated value', async function() {
     await wrapper.instance().componentDidMount();
     await contract.methods.increase().send();
-    expect(wrapper.text()).to.include("Value: 2");
+    expect(wrapper.text()).to.include("value: 2");
   });
 
   it('disables button when sending tx', async function() {
