@@ -36,7 +36,7 @@ async function main() {
     ensAddress = '0x112234455c3a32fd11230c42e7bccd4a84e02010';
     publicResolverAddress = '0x4c641fb9bad9b60ef180c31f56051ce826d21a9a';  
   } else {
-    throw new Error("Network not supported", networkId);
+    throw new Error(`Network ${networkId} not supported, please use Rinkeby or Ropsten`);
   }
   
   // Load registrar and ens contracts

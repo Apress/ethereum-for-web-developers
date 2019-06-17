@@ -1,6 +1,6 @@
 # User onboarding
 
-Snippets and contracts for the user onboarding chapter. Run `npm install` at the root of this folder, and then `cd` into each section and use `node` to run the scripts within.
+Snippets and contracts for the user onboarding chapter. Run `npm install` at the root of this folder, and then `cd` into each section and use `node` to run the scripts within. Make sure to have a ganache instance running on port 8545 for most samples.
 
 ## Forwarding contracts
 
