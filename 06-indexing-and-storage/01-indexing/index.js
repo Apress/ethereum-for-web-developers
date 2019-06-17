@@ -2,8 +2,9 @@ const Indexer = require('./reorgs-indexer');
 const express = require('express')
 const mapValues = require('lodash.mapvalues');
 
+const API_TOKEN = 'YOUR_INFURA_API_TOKEN';
 const PORT = 3000;
-const PROVIDER = 'https://mainnet.infura.io/v3/21f9184fc9d84c388832f178da5de168';
+const PROVIDER = 'https://mainnet.infura.io/v3/' + API_TOKEN;
 const DEBUG = true;
 
 const ADDRESS = '0x00fdae9174357424a78afaad98da36fd66dd9e03';
