@@ -8,7 +8,7 @@
     "email": "spalladino@gmail.com"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "bignumber.js": "^8.0.2",
     "openzeppelin-solidity": "^2.1.2",
     "react": "^16.6.3",
